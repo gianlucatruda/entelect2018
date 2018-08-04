@@ -8,7 +8,8 @@ class Drone:
 		self.location_obj = None
 		self.kind = kind.lower()
 		self.capacity = 0
-		self.carrying_element = "none"
+		# self.carrying_element = "none"
+		self.carrying_elements = []
 		self.carrying_quantity = 0
 		self.distance_travelled = 0
 		self.index_history = []
@@ -52,40 +53,36 @@ class Drone:
 
 	def collect(self, location, verbose=True):
 		loc_elem = location.element.lower()
-		if self.carrying_quantity == 0:
+		if self.has_space() and loc_elem not in self.carrying_elements:
 			self.pick_up(location, verbose)
-		else:
-			# if you're already carrying the same element, can't pick up
-			if self.carrying_element.lower() == loc_elem:
-				print("ERROR: Drone already carrying that")
-			else:
-				if self.capacity - self.carrying_quantity > 0:
-					self.pick_up(location, verbose)
 
 	def pick_up(self, location, verbose=True):
+		loc_elem = location.element.lower()
 		if location.quantity > 0:
 			# pick up one
 			location.mine()
-			self.carrying_quantity += 1
+			self.carrying_elements.append(loc_elem)
+			self.update_carry_quant()
 		else:
 			print("Mine already empty")
-		self.carrying_element = location.element.lower()
 		if verbose:
 			print("NOTE:Drone picked up from mine --> ", str(location))
 
 	def deposit(self, location, verbose=True):
 		loc_elem = location.element.lower()
-		if self.carrying_quantity == 0:
-			print("ERROR:{} drone at '{}' has nothing to deposit!".format(self.kind,str(location)))
+		if loc_elem in self.carrying_elements:
+			location.deposit()
+			self.carrying_elements.remove(loc_elem)
+			if verbose:
+				print("NOTE:{} deposited materials at factory".format(str(self)))
 		else:
-			if self.carrying_element.lower() == loc_elem:
-				# Drop the stuff off
-				self.carrying_element = "none"
-				self.carrying_quantity = 0
-				if verbose:
-					print("NOTE:{} deposited materials at factory".format(str(self)))
-			else:
-				print("ERROR:Drone at factory [index = {}] carrying the wrong element: {} instead of {}".format(str(location.index),self.carrying_element.lower(), loc_elem))
+			print("ERROR:{} drone at '{}' has nothing to deposit!".format(self.kind,str(location)))
+
+	def update_carry_quant(self):
+		self.carrying_quantity = len(self.carrying_elements)
+
+	def has_space(self):
+		return self.capacity - len(self.carrying_elements) > 0
 
 	def is_available(self):
 		if self.carrying_element in ["none", "null", "None", "", " ", None] and self.carrying_quantity == 0:
@@ -93,7 +90,7 @@ class Drone:
 		return False
 
 	def __str__(self):
-		out = "NOTE:Drone of kind {} at ({},{}) carrying {} pieces of {} ".format(
-			self.kind, self.x, self.y, self.carrying_quantity, self.carrying_element
+		out = "NOTE:Drone of kind {} at ({},{}) carrying {}".format(
+			self.kind, self.x, self.y, self.carrying_elements
 		)
 		return out

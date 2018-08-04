@@ -30,6 +30,10 @@ class Factory:
 		self.index = index
 		self.element = element
 		self.nearest_mines = []
+		self.quantity = 0
+
+	def deposit(self):
+		self.quantity += 1
 
 	def __str__(self):
 		out = "{} factory [index = {}] at {},{}".format(
