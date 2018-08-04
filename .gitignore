@@ -1,3 +1,7 @@
 /specification.pdf
 *.pyc
 __pycache__/
+*.input
+*.out
+*.txt
+*.zip

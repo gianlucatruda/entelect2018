@@ -1,0 +1,1 @@
+zip submission.zip *.py

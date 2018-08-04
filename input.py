@@ -1,5 +1,5 @@
 from locations import Mine, Factory
-
+from agents import Drone
 class input:
 
     def __init__(self, file_name):
@@ -10,9 +10,9 @@ class input:
             params = (int(x) for x in lines[0].split(' '))
 
             self.map_size = next(params), next(params)
-            self.miners = next(params)
-            self.excavators = next(params)
-            self.haulers = next(params)
+            self.miners = [Drone("miner") for x in range(next(params))] 
+            self.excavators = [Drone("excavator") for x in range(next(params))] 
+            self.haulers = [Drone("hauler") for x in range(next(params))] 
             self.n_mines = next(params)            
             self.mines = []            
             self.n_factories = next(params)

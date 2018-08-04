@@ -11,6 +11,8 @@ def closestMine(agent, mineList):
 	returnLocation = None
 	minimum = 1000000
 	for mine in mineList:
+		if mine.quantity == 0 or mine == agent.location_obj:
+			continue
 		dist = distance(agent.x, agent.y, mine.x, mine.y)
 		if ( dist < minimum):
 			returnLocation = mine
@@ -42,3 +44,12 @@ def create_closest_dicts(mines, factories, dict_mines_factories):
 		]
 		closest_factories[mine].sort(key = lambda x: x[1])
 	return closest_factories
+
+def get_all_mines_of_type(dict_mines_factories, type):
+	print ("checking all mines of type", type)
+	print (dict_mines_factories[type]["mines"][0])
+	return dict_mines_factories[type]["mines"]
+
+def check_if_mines_and_drones_empty(mines, drones):
+	bools = {mine.quantity == 0 for mine in mines} 
+	return False in bools
