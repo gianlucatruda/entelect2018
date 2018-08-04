@@ -7,6 +7,15 @@ class Mine:
 		self.quantity = quantity
 		self.nearest_factories = []
 
+	def mine(self, quant):
+		if quant > self.quantity:
+			print("You're taking away too much at this mine -> ",str(self))
+			self.quantity = 0
+		else:
+			self.quantity -= quant
+		if self.quantity == 0:
+			print("Mine empty -> ",str(self))
+
 	def __str__(self):
 		out = "{} mine [{}] at {},{} with quant: {}".format(
 			self.element, self.index, self.x, self.y, self.quantity

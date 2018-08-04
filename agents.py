@@ -27,7 +27,6 @@ class Drone:
 		X = location.x
 		Y = location.y
 		self.location_obj = location
-		ind = location.index
 		dist = tools.distance(self.x, self.y, X, Y)
 		self.distance_travelled += dist
 		self.index_history.append(location.index)
@@ -40,13 +39,13 @@ class Drone:
 
 
 	def take_action(self, location, verbose=True):
-		loc_elem = location.element.lower()
 		if type(location) is Mine:
 			self.collect(location)
 		elif type(location) is Factory:
 			self.deposit(location)
 		else:
 			# couldn't identify location
+			print("Drone couldn't identify the location type!")
 
 	def collect(self, location, verbose=True):
 		loc_elem = location.element.lower()
@@ -57,29 +56,32 @@ class Drone:
 			if self.carrying_element.lower() == loc_elem and (self.capacity - self.carrying_quantity) > 0:
 				self.pick_up(location)
 			else:
-				print("Drone can't pick up anything at this mine -->", )
+				print("Drone can't pick up anything at this mine -->", str(location))
 
 	def pick_up(self, location, verbose=True):
 		if location.quantity >= (self.carrying_quantity - self.capacity):
-				# pick up as much as you can
-				location.mine(self.carrying_quantity - self.capacity)
-				self.carrying_quantity = self.capacity
-			else:
-				# Pick up what is available
-				self.carrying_quantity += location.quantity
-				location.mine(location.quantity)
-			self.carrying_element = location.element.lower()
+			# pick up as much as you can
+			location.mine(self.carrying_quantity - self.capacity)
+			self.carrying_quantity = self.capacity
+		else:
+			# Pick up what is available
+			self.carrying_quantity += location.quantity
+			location.mine(location.quantity)
+		self.carrying_element = location.element.lower()
+		print("Drone picked up from mine --> ", str(location))
 
 	def deposit(self, location, verbose=True):
 		loc_elem = location.element.lower()
 		if self.carrying_quantity == 0:
-			# you fucked up
+			print("Drone at {} has nothing to deposit!".format(str(location)))
 		else:
 			if self.carrying_element.lower() == loc_elem:
 				# Drop the stuff off
+				self.carrying_element = "none"
+				self.carrying_quantity = 0
+				print("{} deposited materials at factory".format(str(self)))
 			else:
-				# you fucked up
-
+				print("Drone at {} carrying the wrong element!".format(str(location)))
 
 	def is_available(self):
 		if self.carrying_element in ["none", "null", "None", "", " ", None] and self.carrying_quantity == 0:
