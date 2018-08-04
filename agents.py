@@ -9,6 +9,7 @@ class Drone:
 		self.carrying_element = "none"
 		self.carrying_quantity = 0
 		self.distance_travelled = 0
+		self.index_history = []
 
 		if self.kind == "miner":
 			self.capacity = 1
@@ -19,18 +20,21 @@ class Drone:
 		else:
 			print("Unrecognised drone kind:", self.kind)
 
+	# Move the drone to a mine or factory
 	def move_to(self, location, verbose=True):
 		X = location.x
 		Y = location.y
+		ind = location.index
 		dist = tools.distance(self.x, self.y, X, Y)
 		self.distance_travelled += dist
+		self.index_history.append(location.index)
 		self.x = X
 		self.y = Y
 		if verbose:
 			print("Moved {} drone {} blocks to ({},{})".format(self.kind, dist, self.x, self.y))
 
 	def is_available(self):
-		if self.carrying_element in ["none", "null", "None", "", " ", None] and self.carrying_quantity = 0:
+		if self.carrying_element in ["none", "null", "None", "", " ", None] and self.carrying_quantity == 0:
 			return True
 		return False
 
