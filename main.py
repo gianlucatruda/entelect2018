@@ -3,7 +3,7 @@ from tools import create_closest_dicts, closestMine, get_all_mines_of_type, chec
 from output import output
 
 def main():
-    _input = input('../input/map_1.input')
+    _input = input('map_1.input')
     
     closest_factories = create_closest_dicts(_input.mines, _input.factories, _input.dict_mines_factories)
     all_drones =  _input.haulers + _input.excavators + _input.miners 
@@ -39,6 +39,7 @@ def main():
                 drone.move_to(close_mine, True)
         not_done = check_if_mines_and_drones_empty(_input.mines, all_drones)
 
+    print ()
     for mine in _input.mines:
         if mine.quantity != 0:
             print ("mine ", mine, " still has stuff ")
@@ -46,8 +47,9 @@ def main():
     for drone in all_drones:
         if drone.carrying_quantity != 0:
             print ("drone", drone, "still has stuff")
+
     print ("dist", current_total_distance(all_drones))
-    output('out.out', all_drones)
+    output('out.txt', all_drones)
 
 
 

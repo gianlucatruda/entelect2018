@@ -51,5 +51,5 @@ def get_all_mines_of_type(dict_mines_factories, type):
 	return dict_mines_factories[type]["mines"]
 
 def check_if_mines_and_drones_empty(mines, drones):
-	bools = {mine.quantity == 0 for mine in mines} 
+	bools = {mine.quantity == 0 for mine in mines} | {drone.carrying_quantity == 0 for drone in drones}
 	return False in bools

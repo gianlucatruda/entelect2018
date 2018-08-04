@@ -1,1 +1,2 @@
-zip submission.zip *.py
+rm source.zip
+zip source.zip *.py
