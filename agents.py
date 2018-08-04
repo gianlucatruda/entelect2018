@@ -73,6 +73,7 @@ class Drone:
 		if loc_elem in self.carrying_elements:
 			location.deposit()
 			self.carrying_elements.remove(loc_elem)
+			self.update_carry_quant()
 			if verbose:
 				print("NOTE:{} deposited materials at factory".format(str(self)))
 		else:
