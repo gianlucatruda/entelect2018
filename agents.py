@@ -33,15 +33,18 @@ class Drone:
 		self.x = X
 		self.y = Y
 
-		# Call take_action() here
 		if verbose:
 			print("Moved {} drone {} blocks to ({},{})".format(self.kind, dist, self.x, self.y))
 
+		self.take_action(location)
+
+		print(str(self))
+
 
 	def take_action(self, location, verbose=True):
-		if type(location) is Mine:
+		if type(location) == Mine:
 			self.collect(location)
-		elif type(location) is Factory:
+		elif type(location) == Factory:
 			self.deposit(location)
 		else:
 			# couldn't identify location
@@ -59,9 +62,9 @@ class Drone:
 				print("Drone can't pick up anything at this mine -->", str(location))
 
 	def pick_up(self, location, verbose=True):
-		if location.quantity >= (self.carrying_quantity - self.capacity):
+		if location.quantity >= (self.capacity - self.carrying_quantity):
 			# pick up as much as you can
-			location.mine(self.carrying_quantity - self.capacity)
+			location.mine(self.capacity - self.carrying_quantity)
 			self.carrying_quantity = self.capacity
 		else:
 			# Pick up what is available
