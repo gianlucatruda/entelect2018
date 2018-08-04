@@ -13,8 +13,8 @@ class Mine:
 			self.quantity = 0
 		else:
 			self.quantity -= 1
-		if self.quantity == 0:
-			print("NOTE:Mine empty -> ", str(self))
+		# if self.quantity == 0:
+		# 	print("NOTE:Mine empty -> ", str(self))
 
 	def __str__(self):
 		out = "{} mine [index = {}] at ({},{}) with quant: {}".format(

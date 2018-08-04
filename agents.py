@@ -20,8 +20,8 @@ class Drone:
 			self.capacity = 3
 		elif self.kind == "hauler":
 			self.capacity = 5
-		else:
-			print("Unrecognised drone kind:", self.kind)
+		# else:
+			# print("Unrecognised drone kind:", self.kind)
 
 	# Move the drone to a mine or factory
 	def move_to(self, location, verbose=True):
@@ -34,12 +34,12 @@ class Drone:
 		self.x = X
 		self.y = Y
 
-		if verbose:
-			print("NOTE:Moved {} drone {} blocks to ({},{})".format(self.kind, dist, self.x, self.y))
+		# if verbose:
+			# print("NOTE:Moved {} drone {} blocks to ({},{})".format(self.kind, dist, self.x, self.y))
 
 		self.take_action(location, verbose)
-		if verbose:
-			print(str(self))
+		# if verbose:
+			# print(str(self))
 
 
 	def take_action(self, location, verbose=True):
@@ -47,9 +47,9 @@ class Drone:
 			self.collect(location, verbose)
 		elif type(location) == Factory:
 			self.deposit(location, verbose)
-		else:
+		# else:
 			# couldn't identify location
-			print("ERROR:{} drone at index {} couldn't identify the location type!".format(self.kind, location.index))
+			# print("ERROR:{} drone at index {} couldn't identify the location type!".format(self.kind, location.index))
 
 	def collect(self, location, verbose=True):
 		loc_elem = location.element.lower()
@@ -63,10 +63,10 @@ class Drone:
 			location.mine()
 			self.carrying_elements.append(loc_elem)
 			self.update_carry_quant()
-		else:
-			print("Mine already empty")
-		if verbose:
-			print("NOTE:Drone picked up from mine --> ", str(location))
+		# else:
+		# 	# print("Mine already empty")
+		# if verbose:
+			# print("NOTE:Drone picked up from mine --> ", str(location))
 
 	def deposit(self, location, verbose=True):
 		loc_elem = location.element.lower()
@@ -74,21 +74,16 @@ class Drone:
 			location.deposit()
 			self.carrying_elements.remove(loc_elem)
 			self.update_carry_quant()
-			if verbose:
-				print("NOTE:{} deposited materials at factory".format(str(self)))
-		else:
-			print("ERROR:{} drone at '{}' has nothing to deposit!".format(self.kind,str(location)))
+			# if verbose:
+				# print("NOTE:{} deposited materials at factory".format(str(self)))
+		# else:
+			# print("ERROR:{} drone at '{}' has nothing to deposit!".format(self.kind,str(location)))
 
 	def update_carry_quant(self):
 		self.carrying_quantity = len(self.carrying_elements)
 
 	def has_space(self):
 		return self.capacity - len(self.carrying_elements) > 0
-
-	def is_available(self):
-		if self.carrying_element in ["none", "null", "None", "", " ", None] and self.carrying_quantity == 0:
-			return True
-		return False
 
 	def __str__(self):
 		out = "NOTE:Drone of kind {} at ({},{}) carrying {}".format(

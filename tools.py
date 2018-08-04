@@ -11,13 +11,23 @@ def closestMine(agent, mineList):
 	returnLocation = None
 	minimum = 1000000
 	for mine in mineList:
-		if mine.quantity == 0 or mine == agent.location_obj:
+		if mine.element in agent.carrying_elements or mine.quantity == 0 or mine == agent.location_obj:
 			continue
 		dist = distance(agent.x, agent.y, mine.x, mine.y)
 		if ( dist < minimum):
 			returnLocation = mine
 			minimum = dist
-	return returnLocation
+	return (minimum, returnLocation)
+
+def closestFactory(agent, factList):
+	returnLocation = None
+	minimum = 1000000
+	for fact in factList:
+		dist = distance(agent.x, agent.y, fact.x, fact.y)
+		if ( dist < minimum):
+			returnLocation = fact
+			minimum = dist
+	return (minimum, returnLocation)
 
 # Get total distance travelled by all drones up till now
 def current_total_distance(drones):
@@ -46,9 +56,10 @@ def create_closest_dicts(mines, factories, dict_mines_factories):
 	return closest_factories
 
 def get_all_mines_of_type(dict_mines_factories, type):
-	print ("checking all mines of type", type)
-	print (dict_mines_factories[type]["mines"][0])
 	return dict_mines_factories[type]["mines"]
+
+def get_all_factories_of_type(dict_mines_factories, type):
+	return dict_mines_factories[type]["factories"]
 
 def check_if_mines_and_drones_empty(mines, drones):
 	bools = {mine.quantity == 0 for mine in mines} | {drone.carrying_quantity == 0 for drone in drones}
