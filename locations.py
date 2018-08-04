@@ -9,15 +9,15 @@ class Mine:
 
 	def mine(self, quant):
 		if quant > self.quantity:
-			print("You're taking away too much at this mine -> ",str(self))
+			print("You'r taking away too much at this mine -> ",str(self))
 			self.quantity = 0
 		else:
 			self.quantity -= quant
 		if self.quantity == 0:
-			print("Mine empty -> ",str(self))
+			print("NOTE:Mine empty -> ", str(self))
 
 	def __str__(self):
-		out = "{} mine [{}] at {},{} with quant: {}".format(
+		out = "{} mine [index = {}] at ({},{}) with quant: {}".format(
 			self.element, self.index, self.x, self.y, self.quantity
 		)
 		return out
@@ -32,7 +32,7 @@ class Factory:
 		self.nearest_mines = []
 
 	def __str__(self):
-		out = "{} factory [{}] at {},{}".format(
+		out = "{} factory [index = {}] at {},{}".format(
 			self.element, self.index, self.x, self.y
 		)
 		return out
