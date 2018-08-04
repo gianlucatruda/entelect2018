@@ -5,6 +5,7 @@ class Mine:
 		self.index = index
 		self.element = element
 		self.quantity = quantity
+		self.nearest_factories = []
 
 	def __str__(self):
 		out = "{} mine [{}] at {},{} with quant: {}".format(
@@ -19,6 +20,7 @@ class Factory:
 		self.y = y
 		self.index = index
 		self.element = element
+		self.nearest_mines = []
 
 	def __str__(self):
 		out = "{} factory [{}] at {},{}".format(
