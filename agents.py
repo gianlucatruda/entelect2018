@@ -55,21 +55,20 @@ class Drone:
 		if self.carrying_quantity == 0:
 			self.pick_up(location, verbose)
 		else:
-			# if you're already carrying the same element, pick up if you can
-			if self.carrying_element.lower() == loc_elem and (self.capacity - self.carrying_quantity) > 0:
-				self.pick_up(location, verbose)
+			# if you're already carrying the same element, can't pick up
+			if self.carrying_element.lower() == loc_elem:
+				print("ERROR: Drone already carrying that")
 			else:
-				print("ERROR:",self.kind,"drone can't pick up anything at", str(location))
+				if self.capacity - self.carrying_quantity > 0:
+					self.pick_up(location, verbose)
 
 	def pick_up(self, location, verbose=True):
-		if location.quantity >= (self.capacity - self.carrying_quantity):
-			# pick up as much as you can
-			location.mine(self.capacity - self.carrying_quantity)
-			self.carrying_quantity = self.capacity
+		if location.quantity > 0:
+			# pick up one
+			location.mine()
+			self.carrying_quantity += 1
 		else:
-			# Pick up what is available
-			self.carrying_quantity += location.quantity
-			location.mine(location.quantity)
+			print("Mine already empty")
 		self.carrying_element = location.element.lower()
 		if verbose:
 			print("NOTE:Drone picked up from mine --> ", str(location))

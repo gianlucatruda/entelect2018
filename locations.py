@@ -7,12 +7,12 @@ class Mine:
 		self.quantity = quantity
 		self.nearest_factories = []
 
-	def mine(self, quant):
-		if quant > self.quantity:
+	def mine(self):
+		if self.quantity < 1:
 			print("You'r taking away too much at this mine -> ",str(self))
 			self.quantity = 0
 		else:
-			self.quantity -= quant
+			self.quantity -= 1
 		if self.quantity == 0:
 			print("NOTE:Mine empty -> ", str(self))
 
