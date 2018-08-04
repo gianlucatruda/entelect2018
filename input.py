@@ -14,17 +14,37 @@ class input:
             self.excavators = next(params)
             self.haulers = next(params)
             self.n_mines = next(params)            
-            self.mines = []
+            self.mines = []            
             self.n_factories = next(params)
             self.factories = []
-            self.budget = next(params)            
+            self.budget = next(params)
+            
+            self.dict_mines_factories = {}
 
             for line in lines[1:]:
                 line = line.strip().split(' ')
                 _type = line[1]
                 del line[1]
                 if _type.isupper():
-                    self.mines.append( Mine(_type, *(int(x) for x in line )))
-                else:
-                    self.factories.append( Factory(_type, *(int(x) for x in line )))
+                    mine = Mine(_type, *(int(x) for x in line ))
+                    self.mines.append(mine)
 
+                    if not self.dict_mines_factories.get(_type):
+                        self.dict_mines_factories[_type] = {"mines": [], "factories": []}
+                    self.dict_mines_factories[_type]["mines"].append(mine)
+
+
+                else:
+                    factory = Factory(_type, *(int(x) for x in line ))
+                    self.factories.append( factory)
+                        
+                    self.dict_mines_factories[_type.upper()]["factories"].append(factory)
+
+    def print_dict(self):
+        for i,v in self.dict_mines_factories.items():
+            print ("RESOURCE " + i)
+            for typ, lst in v.items():
+                print ( typ, end =": [")
+                for res in lst:
+                    print (res, end="; ")
+                print("]")
