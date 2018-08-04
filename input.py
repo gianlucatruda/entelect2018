@@ -19,7 +19,7 @@ class input:
             self.factories = []
             self.budget = next(params)
             
-            self.dict_mines_facts = {}
+            self.dict_mines_factories = {}
 
             for line in lines[1:]:
                 line = line.strip().split(' ')
@@ -29,19 +29,19 @@ class input:
                     mine = Mine(_type, *(int(x) for x in line ))
                     self.mines.append(mine)
 
-                    if not self.dict_mines_facts.get(_type):
-                        self.dict_mines_facts[_type] = {"mines": [], "factories": []}
-                    self.dict_mines_facts[_type]["mines"].append(mine)
+                    if not self.dict_mines_factories.get(_type):
+                        self.dict_mines_factories[_type] = {"mines": [], "factories": []}
+                    self.dict_mines_factories[_type]["mines"].append(mine)
 
 
                 else:
                     factory = Factory(_type, *(int(x) for x in line ))
                     self.factories.append( factory)
                         
-                    self.dict_mines_facts[_type.upper()]["factories"].append(factory)
+                    self.dict_mines_factories[_type.upper()]["factories"].append(factory)
 
     def print_dict(self):
-        for i,v in self.dict_mines_facts.items():
+        for i,v in self.dict_mines_factories.items():
             print ("RESOURCE " + i)
             for typ, lst in v.items():
                 print ( typ, end =": [")
