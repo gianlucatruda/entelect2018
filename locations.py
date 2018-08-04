@@ -1,5 +1,5 @@
 class Mine:
-	def __init__(self, index, element, x, y, quantity):
+	def __init__(self, element, index, x, y, quantity):
 		self.x = x
 		self.y = y
 		self.index = index
@@ -14,14 +14,14 @@ class Mine:
 
 
 class Factory:
-	def __init__(self, index, element, x, y):
+	def __init__(self, element, index, x, y):
 		self.x = x
 		self.y = y
 		self.index = index
 		self.element = element
 
 	def __str__(self):
-		out = "{} factory [{}] at {},{} with quant: {}".format(
+		out = "{} factory [{}] at {},{}".format(
 			self.element, self.index, self.x, self.y
 		)
 		return out

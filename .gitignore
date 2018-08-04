@@ -1,1 +1,3 @@
 /specification.pdf
+*.pyc
+__pycache__/
