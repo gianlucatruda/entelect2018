@@ -29,6 +29,10 @@ class Drone:
 		if verbose:
 			print("Moved {} drone {} blocks to ({},{})".format(self.kind, dist, self.x, self.y))
 
+	def is_available(self):
+		if self.carrying_element in ["none", "null", "None", "", " ", None] and self.carrying_quantity = 0:
+			return True
+		return False
 
 	def __str__(self):
 		out = "Drone of kind {} at ({},{}) carrying {} pieces of {} ".format(
