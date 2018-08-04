@@ -1,8 +1,8 @@
 # Entelect Programming Challenge 2018
 
-[challenge.entelect.co.za/university](https://challenge.entelect.co.za/university)
+![Image of Entelect Comp logo](https://i.imgur.com/l2BrVQD.jpg)
 
-<iframe width="672" height="420" src="https://www.youtube.com/embed/92o4yxJUC8o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+[challenge.entelect.co.za/university](https://challenge.entelect.co.za/university)
 
 ## Team 'Sudo' 
 - [Oliver De Bruin](https://github.com/Oliverdeb)
