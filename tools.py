@@ -7,13 +7,13 @@ def dist_obj(fst, snd):
 	return distance(fst.x, fst.y, snd.x, snd.y)
 
 #return the closest mine to the agent
-def closestMine(agent, mineList):
+def closestMine(agent, mineList, dict_):
 	returnLocation = None
 	minimum = 1000000
 	for mine in mineList:
 		if mine.element in agent.carrying_elements or mine.quantity == 0 or mine == agent.location_obj:
 			continue
-		dist = distance(agent.x, agent.y, mine.x, mine.y)
+		dist = distance(agent.x, agent.y, mine.x, mine.y) + dict_[mine][0][1]
 		if ( dist < minimum):
 			returnLocation = mine
 			minimum = dist
