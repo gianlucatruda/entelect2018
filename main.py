@@ -4,12 +4,13 @@ from output import output
 
 def main():
     _input = input('map_3.input')
-    
+
     closest_factories = create_closest_dicts(_input.mines, _input.factories, _input.dict_mines_factories)
-    all_drones =  _input.haulers + _input.excavators + _input.miners 
+    all_drones =  _input.haulers + _input.excavators + _input.miners
     not_done = True
     while not_done:
         # print ("STARTING")
+        print("Remaining resources: ",sum(m.quantity for m in _input.mines),end="\r")
 
         for drone in all_drones:
             # closest mine for now
@@ -25,15 +26,15 @@ def main():
                 drone.move_to(closest_facts[0][1], False)
 
             else:
-                # move to, update dist and index travelled    
+                # move to, update dist and index travelled
                 # print ("Drone is ", drone.x, drone.y, " at ", drone.location_obj)
                 close_mine = closestMine(drone, _input.mines)
-                
+
                 closest_facts = []
-                if len(drone.carrying_elements) == 0:        
+                if len(drone.carrying_elements) == 0:
                     if close_mine[1] == None:
-                        # print ("closest mine is null")                   
-                        continue            
+                        # print ("closest mine is null")
+                        continue
                     drone.move_to(close_mine[1])
                     continue
 
@@ -46,9 +47,9 @@ def main():
                     drone.move_to(closest_facts[0][1], False)
                     continue
 
-                to_move = closest_facts[0][1] if  closest_facts[0][0] < close_mine[0]   else close_mine[1]                
+                to_move = closest_facts[0][1] if  closest_facts[0][0] < close_mine[0]   else close_mine[1]
                 drone.move_to(to_move, True)
-                
+
         not_done = check_if_mines_and_drones_empty(_input.mines, all_drones)
 
     # print ()
