@@ -32,6 +32,6 @@ class Drone:
 
 	def __str__(self):
 		out = "Drone of kind {} at ({},{}) carrying {} pieces of {} ".format(
-			self.kind, self.x, self.y, self.carrying_element, self.carrying_quantity
+			self.kind, self.x, self.y, self.carrying_quantity, self.carrying_element
 		)
 		return out
