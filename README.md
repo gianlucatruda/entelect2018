@@ -1,6 +1,6 @@
 # Entelect Programming Challenge 2018
 
-![Image of Entelect Comp logo](https://i.imgur.com/l2BrVQD.jpg)
+![Image of Entelect Comp logo](https://i.imgur.com/HSVyNZL.png)
 
 [challenge.entelect.co.za/university](https://challenge.entelect.co.za/university)
 

@@ -1,4 +1,3 @@
-/specification.pdf
 *.pyc
 __pycache__/
 *.input
